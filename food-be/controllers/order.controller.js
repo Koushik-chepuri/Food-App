@@ -3,7 +3,7 @@ import { Restaurant } from "../models/restaurant.js";
 
 export async function createOrUpdateOrder(req, res) {
   try {
-    const { restaurantId, items } = req.body; // items is now an array
+    const { restaurantId, items } = req.body;
 
     if (!items || !Array.isArray(items) || items.length === 0) {
       return res.status(400).json({ message: "Items array is required" });
@@ -78,7 +78,6 @@ export async function createOrUpdateOrder(req, res) {
 
 export async function checkoutOrder(req, res) {
   try {
-    // find user's active cart
     const order = await Order.findOne({
       user: req.user.id,
       status: "cart",
@@ -88,14 +87,12 @@ export async function checkoutOrder(req, res) {
       return res.status(400).json({ message: "No cart found to checkout" });
     }
 
-    // enforce bonus rule: cannot checkout cross-country
-    if (req.user.role !== "admin" && order.country !== req.user.country) {
+    if (req.user.role !== "Admin" && order.country !== req.user.country) {
       return res
         .status(403)
         .json({ message: "You cannot checkout orders from another country" });
     }
 
-    // Mark order as placed
     order.status = "placed";
     await order.save();
 
