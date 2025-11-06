@@ -105,3 +105,28 @@ export async function checkoutOrder(req, res) {
     res.status(500).json({ message: err.message });
   }
 }
+
+export async function cancelOrder(req, res) {
+  try {
+    const { id } = req.params;
+
+    const order = await Order.findById(id);
+
+    if (!order) {
+      return res
+        .status(404)
+        .json({ status: "fail", message: "Order not found" });
+    }
+
+    order.status = "cancelled";
+    await order.save();
+
+    res.status(200).json({
+      status: "success",
+      message: "Order cancelled successfully",
+      order,
+    });
+  } catch (err) {
+    res.status(500).json({ status: "error", message: err.message });
+  }
+}
