@@ -1,0 +1,139 @@
+:root {
+  --bg: #FAF9F6;
+  --card-bg: #FFFFFF;
+  --text-primary: #111;
+  --text-secondary: #6B7280;
+  --border-soft: #E5E7EB;
+}
+
+body {
+  background: var(--bg);
+}
+
+/* Page Wrapper */
+.restaurants-page {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 48px 36px;
+}
+
+/* Header Section */
+.restaurants-header {
+  text-align: center;
+  margin-bottom: 42px;
+}
+
+.restaurants-header h1 {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.restaurants-header p {
+  color: var(--text-secondary);
+  font-size: 15px;
+}
+
+/* Top Search + Filters */
+.restaurants-topbar {
+  margin-bottom: 32px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.search-input {
+  flex: 1;
+  max-width: 300px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--border-soft);
+  font-size: 15px;
+}
+
+.filter-chips {
+  display: flex;
+  gap: 10px;
+}
+
+.filter-chips button {
+  padding: 8px 14px;
+  border-radius: 20px;
+  border: 1px solid var(--border-soft);
+  background: white;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.filter-chips button:hover {
+  border-color: #111;
+}
+
+/* Grid */
+.restaurants-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 32px;
+}
+
+/* Card */
+.restaurant-card {
+  background: var(--card-bg);
+  border-radius: 14px;
+  border: 1px solid var(--border-soft);
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.restaurant-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.08);
+}
+
+/* Image Wrapper */
+.image-wrapper {
+  position: relative;
+  height: 170px;
+}
+
+.image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Rating */
+.rating-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 5px 10px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #111;
+}
+
+/* Info */
+.restaurant-info {
+  padding: 14px 16px;
+}
+
+.restaurant-info h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.restaurant-info p {
+  font-size: 14px;
+  color: var(--text-secondary);
+}

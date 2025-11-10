@@ -1,0 +1,83 @@
+.navbar {
+   width: 100vw; /* Force full width */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 40px;   /* <-- Makes it look confident, not timid */
+  background: #FAF9F6;
+  border-bottom: 1px solid #E5E7EB;
+  box-sizing: border-box; /* Prevent overflow */
+  padding: 20px 50px;
+}
+
+.logo {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+  color: #222;
+  text-decoration: none;
+}
+
+.brand {
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}
+.brand:hover {
+  opacity: 0.85;
+}
+
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #111;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.nav-links a:hover {
+  opacity: 0.75;
+}
+
+.nav-links .signup-btn {
+  background: #111;
+  color: #fff;
+  padding: 8px 18px;
+  border-radius: 6px;
+  transition: 0.2s;
+}
+
+.nav-links .signup-btn:hover {
+  background: #000;
+}
+
+
+.signup-btn {
+  font-weight: 600;
+}
+
+.cart-link {
+  background: #ff6b00;
+  padding: 6px 12px;
+  border-radius: 8px;
+  color: white !important;
+}
+
+.logout-btn {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-weight: 600;
+  color: #444;
+  padding: 0;
+}
+
+.logout-btn:hover {
+  color: #000;
+}

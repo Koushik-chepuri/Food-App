@@ -1,0 +1,99 @@
+.restaurant-card {
+  background: #ffffff;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid #ececec;
+  cursor: pointer;
+  transition: transform 0.22s ease, box-shadow 0.25s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.restaurant-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 30px rgba(0,0,0,0.12);
+}
+
+.restaurant-img-wrapper {
+  position: relative;
+  height: 170px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.restaurant-img-wrapper::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 55%;
+  background: linear-gradient(to top, rgba(0,0,0,0.35), transparent);
+}
+
+.restaurant-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.restaurant-card:hover .restaurant-img {
+  transform: scale(1.07);
+}
+
+.rating-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(6px);
+
+  padding: 5px 10px;
+  border-radius: 8px;
+
+  font-size: 14px;
+  font-weight: 500;
+
+  color: #111;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+
+  height: auto;     /* <-- IMPORTANT */
+  width: auto;      /* <-- IMPORTANT */
+  min-width: fit-content; /* <-- prevents stretching */
+}
+
+
+.restaurant-details {
+  padding: 14px 16px;
+}
+
+.restaurant-details h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.restaurant-details p {
+  margin: 6px 0 0;
+  font-size: 14px;
+  color: #666;
+}
+
+.image-wrapper {
+  position: relative;
+  height: 170px;
+  overflow: hidden;
+  border-radius: 12px 12px 0 0;
+}
+
+.image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
