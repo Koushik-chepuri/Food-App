@@ -6,21 +6,40 @@ import "../styling/MyOrders.css";
 
 export default function MyOrders() {
   const { user } = useAuth();
-  const [orders, setOrders] = useState([]);
-  const API = import.meta.env.VITE_API_BASE;
+    const [orders, setOrders] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const API = import.meta.env.VITE_API_BASE;
 
-  useEffect(() => {
-    async function fetchOrders() {
-      const token = localStorage.getItem("token");
-      const res = await axios.get(`${API}/orders`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setOrders(res.data.data);
-    }
-    fetchOrders();
-  }, []);
+    useEffect(() => {
+      async function fetchOrders() {
+        try {
+          const token = localStorage.getItem("token");
+          const res = await axios.get(`${API}/orders`, {
+            headers: { Authorization: `Bearer ${token}` },
+          });
+          setOrders(res.data.data);
+        } catch (err) {
+          console.log(err);
+        } finally {
+          setLoading(false);
+        }
+      }
+      fetchOrders();
+    }, []);
 
-  if (!user) return <div>Loading...</div>;
+    if (!user)
+      return (
+        <div className="full-loader">
+          <div className="loader"></div>
+        </div>
+      );
+
+    if (loading)
+      return (
+        <div className="full-loader">
+          <div className="loader"></div>
+        </div>
+      );
 
   const canCancel = user.role === "Admin" || user.role === "Manager";
 

@@ -84,3 +84,27 @@
 .auth-alt a:hover {
   opacity: 0.75;
 }
+
+.password-field {
+  position: relative;
+}
+
+.password-field .auth-input {
+  padding-right: 42px; /* space for the eye */
+}
+
+.toggle-eye {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 18px;
+  color: var(--text-muted);
+  user-select: none;
+  transition: 0.2s;
+}
+
+.toggle-eye:hover {
+  color: var(--text-main);
+}

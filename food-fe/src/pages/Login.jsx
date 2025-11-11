@@ -10,7 +10,8 @@ export default function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+    const [showPassword, setShowPassword] = useState(false);
+    
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -42,14 +43,24 @@ export default function Login() {
               required
             />
 
+            <div className="password-field">
             <input
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="auth-input"
-              required
+                type={showPassword ? "text" : "password"}
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="auth-input"
+                required
             />
+
+            <span
+                className="toggle-eye"
+                onClick={() => setShowPassword((prev) => !prev)}
+            >
+                {showPassword ?  "🚫👁" : "👁"}
+            </span>
+            </div>
+
 
             <button className="auth-btn">Login</button>
           </form>
