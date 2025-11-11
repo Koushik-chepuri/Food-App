@@ -5,7 +5,6 @@
   background: var(--bg-page);
 }
 
-/* Header */
 .restaurants-header {
   text-align: center;
   margin-bottom: 36px;
@@ -22,7 +21,6 @@
   color: var(--text-muted);
 }
 
-/* Search + Dropdown row */
 .restaurants-topbar {
   display: flex;
   justify-content: center;
@@ -32,7 +30,6 @@
   margin-bottom: 40px;
 }
 
-/* Search Bar */
 .search-input {
   width: 100%;
   max-width: 420px;
@@ -43,7 +40,6 @@
   font-size: 15px;
 }
 
-/* Filter Dropdown Block */
 .filter-block {
   display: flex;
   flex-direction: column;
@@ -57,7 +53,6 @@
   padding-left: 2px;
 }
 
-/* Dropdown */
 .cuisine-select {
   padding: 11px 14px;
   border-radius: 10px;
@@ -79,7 +74,6 @@
   outline: none;
 }
 
-/* Restaurants Grid */
 .restaurants-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
@@ -87,7 +81,6 @@
   margin-top: 12px;
 }
 
-/* No Results */
 .no-results {
   width: 100%;
   text-align: center;
@@ -96,7 +89,6 @@
   color: var(--text-muted);
 }
 
-/* Footer */
 .site-footer {
   margin-top: 80px;
   text-align: center;

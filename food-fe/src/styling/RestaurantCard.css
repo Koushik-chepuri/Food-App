@@ -63,9 +63,9 @@
   color: #111;
   box-shadow: 0 2px 6px rgba(0,0,0,0.15);
 
-  height: auto;     /* <-- IMPORTANT */
-  width: auto;      /* <-- IMPORTANT */
-  min-width: fit-content; /* <-- prevents stretching */
+  height: auto;     
+  width: auto;      
+  min-width: fit-content; 
 }
 
 

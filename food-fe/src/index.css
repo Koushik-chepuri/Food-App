@@ -40,21 +40,19 @@ button {
   cursor: pointer;
 }
 
-/* Scrollbar (Chrome / Edge / Safari) */
 ::-webkit-scrollbar {
   width: 6px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(60, 60, 40, 0.35); /* muted olive-gray */
+  background: rgba(60, 60, 40, 0.35); 
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #e8e2d5; /* matches the page tone */
+  background: #e8e2d5; 
 }
 
-/* Scrollbar for Firefox */
 * {
   scrollbar-width: thin;
   scrollbar-color: rgba(60, 60, 40, 0.35) #e8e2d5;

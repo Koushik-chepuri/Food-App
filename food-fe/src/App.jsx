@@ -10,6 +10,8 @@ import Restaurants from "./pages/Restaurants";
 import RestaurantMenu from "./pages/RestaurantMenu";
 import Checkout from "./pages/Checkout";
 import Payment from "./pages/Payment";
+import MyOrders from "./pages/MyOrders";
+import ManageOrders from "./pages/ManageOrders";
 
 // ✅ Import the modal
 import LoginModal from "./components/LoginModal";
@@ -43,6 +45,8 @@ export default function App() {
               path="/restaurants/:id"
               element={<RestaurantMenu setLoginOpen={setLoginOpen} />}
             />
+            <Route path="/orders" element={<MyOrders />} />
+            <Route path="/manage-orders" element={<ManageOrders />} />
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/payment" element={<Payment />} />
           </Routes>

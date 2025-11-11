@@ -1,6 +1,6 @@
 .navbar {
   height: 60px;
-  width: 100vw;     /* Full width */
+  width: 100vw;    
   max-width: 100%;
   display: flex;
   align-items: center;
@@ -22,7 +22,6 @@
 }
 
 
-/* Logo */
 .logo {
   font-size: 26px;
   font-weight: 700;
@@ -31,10 +30,9 @@
 }
 
 .logo:hover {
-  opacity: 0.85; /* subtle hover */
+  opacity: 0.85; 
 }
 
-/* Links */
 .nav-links,
 .nav-main {
   display: flex;
@@ -72,7 +70,6 @@
 }
 
 
-/* Cart */
 .cart-link {
   background: var(--brand-primary);
   padding: 8px 18px;

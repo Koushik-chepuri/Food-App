@@ -19,10 +19,7 @@ const restaurantSchema = new mongoose.Schema({
 
 export const Restaurant = mongoose.model("Restaurant", restaurantSchema);
 
-// ------------ STATIC SEED DATA ------------
-
 const seedRestaurants = [
-  // ----------- INDIA -----------
   {
     name: "Spice Junction",
     cuisine: "North Indian",
@@ -126,7 +123,6 @@ const seedRestaurants = [
     Image: "/images/restaurants/Roti-and-kebab.jpg",
   },
 
-  // ----------- USA -----------
   {
     name: "Burger Barn",
     cuisine: "American Fast Food",
@@ -577,7 +573,7 @@ const seedRestaurants = [
     const count = await Restaurant.countDocuments();
     if (count === 0) {
       await Restaurant.insertMany(seedRestaurants);
-      console.log("✅ Restaurants seeded successfully");
+      console.log("Restaurants seeded successfully..");
     }
   } catch (err) {
     console.log("Restaurant seed error:", err.message);

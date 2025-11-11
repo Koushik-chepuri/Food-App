@@ -1,0 +1,135 @@
+.checkout-root {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 32px;
+  background: var(--bg-page);
+}
+
+.checkout-card {
+  width: min(600px, 92vw);
+  background: var(--bg-card);
+  border-radius: 14px;
+  border: 1px solid rgba(0,0,0,0.08);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+  padding: 26px 28px;
+  color: var(--text-main);
+}
+
+.checkout-title {
+  margin-bottom: 14px;
+  font-size: 24px;
+  font-weight: 600;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+  padding-bottom: 8px;
+}
+
+.section-title {
+  margin-top: 18px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.items {
+  margin-top: 12px;
+  display: grid;
+  gap: 10px;
+}
+
+.item-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.item-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.item-name {
+  font-weight: 800;
+  font-size: 15px;
+  color: var(--text-main);
+}
+
+.item-qty {
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.item-line-total {
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--text-main);
+  white-space: nowrap;
+}
+
+.total-row {
+  margin-top: 14px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(0,0,0,0.1);
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
+}
+
+.method-options {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.method {
+  padding: 10px 14px;
+  background: rgba(255,255,255,0.6);
+  border-radius: 8px;
+  border: 1px solid rgba(0,0,0,0.12);
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.method input {
+  display: none;
+}
+
+.method.active {
+  background: var(--brand-primary);
+  border-color: var(--brand-primary-hover);
+  color: #fff;
+}
+
+.checkout-btn {
+  width: 100%;
+  margin-top: 26px;
+  padding: 12px 0;
+  border-radius: var(--radius);
+  background: var(--brand-primary);
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  transition: 0.2s ease;
+}
+
+.checkout-btn:disabled {
+  background: rgba(100,100,100,0.4);
+  cursor: not-allowed;
+}
+
+.checkout-btn:hover:not(:disabled) {
+  background: var(--brand-primary-hover);
+}
+
+.restaurant-info {
+  margin-top: 4px;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.restaurant-info span {
+  font-weight: 600;
+  color: var(--text-main);
+}

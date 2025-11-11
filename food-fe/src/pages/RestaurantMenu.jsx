@@ -2,11 +2,14 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useCart } from "../context/CartContext";
+import { formatPrice } from "../utils/currency";
+import { useAuth } from "../context/AuthContext";
 import "../styling/RestaurantMenu.css";
 
 export default function RestaurantMenu({ setLoginOpen }) {
   const { id } = useParams();
   const { cart, addToCart, increaseQty, decreaseQty, clearCart } = useCart();
+  const { user } = useAuth();
   const [restaurant, setRestaurant] = useState(null);
   const navigate = useNavigate();
 
@@ -34,7 +37,6 @@ export default function RestaurantMenu({ setLoginOpen }) {
       setLoginOpen(true);
       return;
     }
-
     navigate(`/checkout?restaurant=${restaurant._id}`);
   };
 
@@ -43,11 +45,16 @@ export default function RestaurantMenu({ setLoginOpen }) {
   return (
     <div className="menu-layout">
       <div className="menu-container">
-        <h1>{restaurant.name}</h1>
-        <p className="menu-location">
-          {restaurant.location} • ⭐ {restaurant.ratings}
-        </p>
+        {/* Restaurant Header */}
+        <div className="restaurant-header">
+          <h1 className="restaurant-name">{restaurant.name}</h1>
+          <p className="restaurant-meta">
+            {restaurant.location} • ⭐ {restaurant.ratings}
+          </p>
+          <div className="restaurant-divider"></div>
+        </div>
 
+        {/* Menu */}
         <div className="menu-items">
           {restaurant.menu.map((item) => {
             const cartItem = cart.find((i) => i._id === item._id);
@@ -60,9 +67,12 @@ export default function RestaurantMenu({ setLoginOpen }) {
                     alt={item.name}
                     className="menu-item-img"
                   />
-                  <div>
+
+                  <div className="menu-item-details">
                     <h3>{item.name}</h3>
-                    <p className="menu-price">₹ {item.price}</p>
+                    <p className="menu-price">
+                      {formatPrice(item.price, user.country)}
+                    </p>
                     <p className="menu-desc">{item.description}</p>
                   </div>
                 </div>
@@ -72,10 +82,7 @@ export default function RestaurantMenu({ setLoginOpen }) {
                     className="add-btn"
                     onClick={() => {
                       const token = localStorage.getItem("token");
-                      if (!token) {
-                        setLoginOpen(true);
-                        return;
-                      }
+                      if (!token) return setLoginOpen(true);
                       addToCart(item, restaurant._id);
                     }}
                   >
@@ -94,29 +101,34 @@ export default function RestaurantMenu({ setLoginOpen }) {
         </div>
       </div>
 
+      {/* Cart Sidebar */}
       <div className="cart-sidebar">
-        <h3>Your Cart</h3>
+        <h3 className="cart-title">Your Cart</h3>
 
-        {cart.length === 0 && <p>No items added.</p>}
+        {cart.length === 0 && <p className="cart-empty">No items added.</p>}
 
         {cart.map((item) => (
           <div key={item._id} className="cart-item">
-            <span>{item.name}</span>
-            <span>x {item.qty}</span>
-            <span>₹ {item.price * item.qty}</span>
+            <span className="item-name">
+              {item.name}
+              <span className="item-qty"> x {item.qty}</span>
+            </span>
+
+            <span>{formatPrice(item.price * item.qty, user.country)}</span>
           </div>
         ))}
 
         {cart.length > 0 && (
           <div className="cart-footer">
-            <hr />
             <div className="cart-total">
-              <span>Total:</span>
+              <span>Total</span>
               <span>
-                ₹ {cart.reduce((sum, item) => sum + item.price * item.qty, 0)}
+                {formatPrice(
+                  cart.reduce((sum, item) => sum + item.price * item.qty, 0),
+                  user.country
+                )}
               </span>
             </div>
-
             <button className="place-order-btn" onClick={placeOrder}>
               Place Order
             </button>

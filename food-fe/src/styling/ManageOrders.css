@@ -1,0 +1,123 @@
+.manage-orders-container {
+  width: min(1100px, 90%);
+  margin: 60px auto;
+}
+
+.manage-orders-container h2 {
+  margin-bottom: 24px;
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.orders-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #faf4e3;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.orders-table th, .orders-table td {
+  padding: 14px 16px;
+  text-align: left;
+  border-bottom: 1px solid #e5dcc8;
+}
+
+.orders-table th {
+  background: #f3ecd7;
+  font-weight: 600;
+}
+
+.orders-table tr:hover {
+  background: #f7f2de;
+}
+
+select {
+  padding: 6px;
+  border-radius: 6px;
+  border: 1px solid #bdb59d;
+  background: #fff;
+  cursor: pointer;
+}
+
+.locked-method {
+  font-weight: 600;
+  color: #3b5e29; 
+}
+
+.btn-cancel {
+  background: #a73232;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.2s ease;
+}
+
+.btn-cancel:hover {
+  background: #8b2626;
+}
+
+.no-change,
+.cancelled-text {
+  font-weight: 600;
+  color: #8b8577;
+  text-align: center;
+  display: block;
+}
+
+.orders-table td, 
+.orders-table th {
+  vertical-align: middle;
+  height: 48px; 
+  padding: 10px 14px; 
+}
+
+.orders-table select,
+.orders-table button {
+  height: 32px;
+  line-height: 32px;
+  padding: 0 10px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: 1px solid #bdb59d;
+}
+
+.btn-cancel {
+  height: 32px;
+  margin-top: 10px;
+  line-height: 32px;
+  padding: 0 12px !important;
+  margin: 0;
+}
+
+.no-change,
+.cancelled-text {
+  line-height: 32px;
+  display: inline-block;
+}
+
+.payment-select {
+  background: #faf5eb;              
+  border: 1px solid #d6c9b7;        
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #3c352e;                   
+  cursor: pointer;
+  outline: none;
+  transition: 0.15s ease;
+}
+
+.payment-select:hover {
+  border-color: #c4b59f;
+  background: #f2e7d9;
+}
+
+.payment-select:focus {
+  border-color: #a7947a;
+  box-shadow: 0 0 0 2px rgba(214, 192, 157, 0.4);
+}

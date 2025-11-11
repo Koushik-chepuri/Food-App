@@ -1,7 +1,7 @@
 import { Order } from "../models/order.js";
 import { Restaurant } from "../models/restaurant.js";
 
-// CREATE ORDER (at checkout)
+// create order at checkout
 export async function createOrder(req, res) {
   try {
     const { restaurantId, items, paymentMethod } = req.body;
@@ -19,14 +19,13 @@ export async function createOrder(req, res) {
       return res.status(404).json({ message: "Restaurant not found" });
     }
 
-    // Country Restriction (Bonus Rule)
+    // country restriction
     if (req.user.role !== "Admin" && restaurant.country !== req.user.country) {
       return res.status(403).json({
         message: "You cannot order from restaurants in another country",
       });
     }
 
-    // Look up prices from restaurant menu
     const orderItems = items.map(entry => {
     const menuItem = restaurant.menu.id(entry.itemId);
     if (!menuItem) throw new Error(`Menu item ${entry.itemId} not found`);
@@ -39,7 +38,7 @@ export async function createOrder(req, res) {
     };
     });
 
-    // Now calculate total correctly
+    //   tot
     const totalAmount = orderItems.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0
@@ -61,7 +60,6 @@ export async function createOrder(req, res) {
   }
 }
 
-// UPDATE PAYMENT STATUS (PAID / FAILED / CASH_ON_DELIVERY)
 export async function updatePaymentStatus(req, res) {
   try {
     const { id } = req.params;
@@ -83,7 +81,6 @@ export async function updatePaymentStatus(req, res) {
   }
 }
 
-// UPDATE PAYMENT METHOD (Admin only)
 export async function updatePaymentMethod(req, res) {
   try {
     const { id } = req.params;
@@ -105,7 +102,6 @@ export async function updatePaymentMethod(req, res) {
   }
 }
 
-// CANCEL ORDER (Admin & Manager)
 export async function cancelOrder(req, res) {
   try {
     const { id } = req.params;
@@ -117,6 +113,31 @@ export async function cancelOrder(req, res) {
     await order.save();
 
     res.json({ status: "success", data: order });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+}
+
+export async function getMyOrders(req, res) {
+  try {
+    const orders = await Order.find({ user: req.user.id })
+      .populate("restaurant", "name country") 
+      .sort({ createdAt: -1 });
+
+    res.json({ status: "success", data: orders });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+}
+
+export async function getAllOrders(req, res) {
+  try {
+    const orders = await Order.find()
+      .populate("restaurant", "name")
+      .populate("user", "email role")
+      .sort({ createdAt: -1 });
+
+    res.json({ status: "success", data: orders });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
 
 const orderItemSchema = new mongoose.Schema({
-    itemId: { type: mongoose.Schema.Types.ObjectId, required: true }, // menu item _id
-    name: String,
-    price: Number,
-    quantity: { type: Number, default: 1 }
+  itemId: { type: mongoose.Schema.Types.ObjectId, required: true },
+  name: String,
+  price: Number,
+  quantity: { type: Number, default: 1 },
 });
 
 const orderSchema = new mongoose.Schema({
@@ -22,7 +22,13 @@ const orderSchema = new mongoose.Schema({
 
   status: {
     type: String,
-    enum: ["PENDING_PAYMENT", "PAID", "FAILED", "CASH_ON_DELIVERY"],
+    enum: [
+      "PENDING_PAYMENT",
+      "PAID",
+      "FAILED",
+      "CASH_ON_DELIVERY",
+      "CANCELLED",
+    ],
     default: "PENDING_PAYMENT",
   },
 

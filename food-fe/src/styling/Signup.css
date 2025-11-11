@@ -1,4 +1,3 @@
-/* SIGNUP PAGE (same theme as login) */
 
 .auth-page {
   display: flex;
@@ -52,7 +51,6 @@
   outline: none;
 }
 
-/* same physics as primary-action + signup btn in navbar */
 .auth-btn {
   display: inline-block;
   padding: 12px;

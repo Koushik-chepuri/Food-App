@@ -13,7 +13,6 @@ export async function getAllRestaurants(req, res) {
 
     const query = {};
 
-    // Only apply region filter *if* user exists and is not admin
     if (req.user && req.user.role !== "Admin") {
       query.country = req.user.country;
     }
