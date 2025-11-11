@@ -86,3 +86,26 @@
   color: #b2463a;
   font-weight: 500;
 }
+
+.page-dim {
+  position: fixed;
+  inset: 0;
+  background: rgba(230, 225, 210, 0.65);
+  backdrop-filter: blur(3px);
+  display: grid;
+  place-items: center;
+  z-index: 999;
+}
+
+.loader {
+  width: 46px;
+  height: 46px;
+  border: 4px solid rgba(255,255,255,0.6);
+  border-top-color: #6b705c; 
+  border-radius: 50%;
+  animation: spin 0.65s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
