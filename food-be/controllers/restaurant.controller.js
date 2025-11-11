@@ -6,8 +6,8 @@ export async function getAllRestaurants(req, res) {
       search,
       cuisine,
       country,
-      page = 1,
-      limit = 10,
+      //   page = 1,
+      //   limit = 10,
       sort = "name",
     } = req.query;
 
@@ -23,19 +23,16 @@ export async function getAllRestaurants(req, res) {
     if (cuisine) query.cuisine = { $regex: cuisine, $options: "i" };
     if (search) query.name = { $regex: search, $options: "i" };
 
-    const skip = (page - 1) * limit;
+    // const skip = (page - 1) * limit;
 
-    const restaurants = await Restaurant.find(query)
-      .sort(sort)
-      .skip(skip)
-      .limit(Number(limit));
+    const restaurants = await Restaurant.find(query).sort(sort);
 
     const total = await Restaurant.countDocuments(query);
 
     res.json({
       status: "success",
-      page: Number(page),
-      pages: Math.ceil(total / Number(limit)),
+      //   page: Number(page),
+      //   pages: Math.ceil(total / Number(limit)),
       results: restaurants.length,
       total,
       data: restaurants,

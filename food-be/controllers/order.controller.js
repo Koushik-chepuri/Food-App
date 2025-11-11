@@ -1,132 +1,123 @@
 import { Order } from "../models/order.js";
 import { Restaurant } from "../models/restaurant.js";
 
-export async function createOrUpdateOrder(req, res) {
+// CREATE ORDER (at checkout)
+export async function createOrder(req, res) {
   try {
-    const { restaurantId, items } = req.body;
+    const { restaurantId, items, paymentMethod } = req.body;
 
     if (!items || !Array.isArray(items) || items.length === 0) {
       return res.status(400).json({ message: "Items array is required" });
     }
 
-    const restaurant = await Restaurant.findById(restaurantId);
-    if (!restaurant)
-      return res.status(404).json({ message: "Restaurant not found" });
+    if (!paymentMethod) {
+      return res.status(400).json({ message: "Payment method is required" });
+    }
 
-    // Country restriction (Bonus Rule)
+    const restaurant = await Restaurant.findById(restaurantId);
+    if (!restaurant) {
+      return res.status(404).json({ message: "Restaurant not found" });
+    }
+
+    // Country Restriction (Bonus Rule)
     if (req.user.role !== "Admin" && restaurant.country !== req.user.country) {
       return res.status(403).json({
         message: "You cannot order from restaurants in another country",
       });
     }
 
-    // Find or create cart
-    let order = await Order.findOne({
-      user: req.user.id,
-      restaurant: restaurantId,
-      status: "cart",
+    // Look up prices from restaurant menu
+    const orderItems = items.map(entry => {
+    const menuItem = restaurant.menu.id(entry.itemId);
+    if (!menuItem) throw new Error(`Menu item ${entry.itemId} not found`);
+
+    return {
+        itemId: entry.itemId,
+        name: menuItem.name,
+        price: menuItem.price,
+        quantity: entry.quantity
+    };
     });
 
-    if (!order) {
-      order = await Order.create({
-        user: req.user.id,
-        restaurant: restaurantId,
-        country: req.user.country,
-        items: [],
-      });
-    }
-
-    // Loop through each menu item
-    for (const entry of items) {
-      const { itemId, quantity = 1 } = entry;
-
-      const menuItem = restaurant.menu.id(itemId);
-      if (!menuItem)
-        return res
-          .status(404)
-          .json({ message: `Menu item ${itemId} not found` });
-
-      const existingItem = order.items.find(
-        (i) => i.itemId.toString() === itemId
-      );
-
-      if (existingItem) {
-        existingItem.quantity += quantity;
-      } else {
-        order.items.push({
-          itemId,
-          name: menuItem.name,
-          price: menuItem.price,
-          quantity,
-        });
-      }
-    }
-
-    // Recalculate total
-    order.totalAmount = order.items.reduce(
-      (sum, i) => sum + i.price * i.quantity,
-      0
+    // Now calculate total correctly
+    const totalAmount = orderItems.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0
     );
 
-    await order.save();
+    const order = await Order.create({
+    user: req.user.id,
+    restaurant: restaurantId,
+    country: req.user.country,
+    items: orderItems,
+    paymentMethod,
+    status: "PENDING_PAYMENT",
+    totalAmount
+    });
 
-    res.status(200).json({ status: "success", order });
+    res.status(201).json({ status: "success", data: order });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 }
 
-export async function checkoutOrder(req, res) {
+// UPDATE PAYMENT STATUS (PAID / FAILED / CASH_ON_DELIVERY)
+export async function updatePaymentStatus(req, res) {
   try {
-    const order = await Order.findOne({
-      user: req.user.id,
-      status: "cart",
-    });
+    const { id } = req.params;
+    const { status } = req.body;
 
-    if (!order) {
-      return res.status(400).json({ message: "No cart found to checkout" });
+    if (!["PAID", "FAILED", "CASH_ON_DELIVERY"].includes(status)) {
+      return res.status(400).json({ message: "Invalid payment status" });
     }
 
-    if (req.user.role !== "Admin" && order.country !== req.user.country) {
-      return res
-        .status(403)
-        .json({ message: "You cannot checkout orders from another country" });
-    }
+    const order = await Order.findById(id);
+    if (!order) return res.status(404).json({ message: "Order not found" });
 
-    order.status = "placed";
+    order.status = status;
     await order.save();
 
-    res.json({
-      status: "success",
-      message: "Order placed successfully",
-      order,
-    });
+    res.json({ status: "success", data: order });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 }
 
+// UPDATE PAYMENT METHOD (Admin only)
+export async function updatePaymentMethod(req, res) {
+  try {
+    const { id } = req.params;
+    const { paymentMethod } = req.body;
+
+    if (!["UPI", "CARD", "COD"].includes(paymentMethod)) {
+      return res.status(400).json({ message: "Invalid payment method" });
+    }
+
+    const order = await Order.findById(id);
+    if (!order) return res.status(404).json({ message: "Order not found" });
+
+    order.paymentMethod = paymentMethod;
+    await order.save();
+
+    res.json({ status: "success", data: order });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+}
+
+// CANCEL ORDER (Admin & Manager)
 export async function cancelOrder(req, res) {
   try {
     const { id } = req.params;
 
     const order = await Order.findById(id);
+    if (!order) return res.status(404).json({ message: "Order not found" });
 
-    if (!order) {
-      return res
-        .status(404)
-        .json({ status: "fail", message: "Order not found" });
-    }
-
-    order.status = "cancelled";
+    order.status = "CANCELLED";
     await order.save();
 
-    res.status(200).json({
-      status: "success",
-      message: "Order cancelled successfully",
-      order,
-    });
+    res.json({ status: "success", data: order });
   } catch (err) {
-    res.status(500).json({ status: "error", message: err.message });
+    res.status(500).json({ message: err.message });
   }
 }

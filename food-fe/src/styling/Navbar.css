@@ -1,83 +1,180 @@
 .navbar {
-   width: 100vw; /* Force full width */
+  height: 60px;
+  width: 100vw;     /* Full width */
+  max-width: 100%;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 18px 40px;   /* <-- Makes it look confident, not timid */
-  background: #FAF9F6;
-  border-bottom: 1px solid #E5E7EB;
-  box-sizing: border-box; /* Prevent overflow */
-  padding: 20px 50px;
+  justify-content: space-between;
+  background: var(--bg-card);
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+  padding: 0 32px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-sizing: border-box;
+  padding: 0 40px;
 }
 
+.nav-link.active {
+  opacity: 1;
+  font-weight: 600;
+  border-bottom: 2px solid var(--brand-primary);
+}
+
+
+/* Logo */
 .logo {
-  margin: 0;
-  font-size: 24px;
+  font-size: 26px;
   font-weight: 700;
-  color: #222;
+  color: var(--text-main);
   text-decoration: none;
 }
 
-.brand {
-  font-size: 26px;
-  font-weight: 700;
-  letter-spacing: -0.3px;
-}
-.brand:hover {
-  opacity: 0.85;
+.logo:hover {
+  opacity: 0.85; /* subtle hover */
 }
 
-
-.nav-links {
+/* Links */
+.nav-links,
+.nav-main {
   display: flex;
   align-items: center;
   gap: 26px;
 }
 
-.nav-links a {
-  text-decoration: none;
-  color: #111;
+.nav-links a,
+.nav-link {
   font-size: 16px;
   font-weight: 500;
+  color: var(--text-main);
 }
 
-.nav-links a:hover {
+.nav-links a:hover,
+.nav-link:hover {
   opacity: 0.75;
 }
 
-.nav-links .signup-btn {
-  background: #111;
-  color: #fff;
-  padding: 8px 18px;
-  border-radius: 6px;
-  transition: 0.2s;
-}
-
-.nav-links .signup-btn:hover {
-  background: #000;
-}
-
-
 .signup-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: var(--radius);
+  background: var(--brand-primary);
+  color: #fff !important;
   font-weight: 600;
+  font-size: 15px;
+  transition: transform 0.1s ease, box-shadow 0.25s ease, background var(--transition);
 }
 
+.signup-btn:hover {
+  background: var(--brand-primary-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+}
+
+
+/* Cart */
 .cart-link {
-  background: #ff6b00;
-  padding: 6px 12px;
-  border-radius: 8px;
+  background: var(--brand-primary);
+  padding: 8px 18px;
+  border-radius: var(--radius);
   color: white !important;
 }
 
-.logout-btn {
-  border: none;
-  background: none;
-  cursor: pointer;
-  font-weight: 600;
-  color: #444;
-  padding: 0;
+.cart-link:hover {
+  background: var(--brand-primary-hover);
 }
 
-.logout-btn:hover {
-  color: #000;
+.user-badge {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #E6DCC7;
+  color: #3B3B3B; 
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.25s ease;
 }
+
+.user-badge:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+}
+
+.dropdown {
+  position: absolute;
+  top: 110%;
+  right: 1%;
+  background: var(--bg-card);
+  border-radius: 12px;
+  border: 1px solid rgba(0,0,0,0.08);
+  min-width: 180px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: 0 8px 26px rgba(0,0,0,0.12);
+  animation: dropdownFade 0.18s ease;
+  z-index: 200;
+}
+
+@keyframes dropdownFade {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dropdown-header {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+}
+
+.user-name-display {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.role-tag {
+  font-size: 12px;
+  background: #e8e3d6;
+  padding: 2px 6px;
+  border-radius: 6px;
+  width: fit-content;
+  text-transform: capitalize;
+  color: var(--text-main);
+  margin-top: 2px;
+}
+
+.dropdown-item {
+  border: none;
+  background: none;
+  text-align: left;
+  font-size: 14px;
+  padding: 2px 0;
+  cursor: pointer;
+  color: var(--text-main);
+  transition: color 0.2s ease;
+}
+
+.dropdown-item:hover {
+  color: var(--brand-primary);
+}
+
+.dropdown-item.logout {
+  color: #b2463a;
+}
+
+.dropdown-item.logout:hover {
+  color: #8d362c;
+}
+

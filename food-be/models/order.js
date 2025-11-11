@@ -15,9 +15,21 @@ const orderSchema = new mongoose.Schema({
     required: true,
   },
   country: { type: String, required: true },
+
   items: [orderItemSchema],
-  status: { type: String, default: "cart" },
+
+  paymentMethod: { type: String, enum: ["UPI", "CARD", "COD"], required: true },
+
+  status: {
+    type: String,
+    enum: ["PENDING_PAYMENT", "PAID", "FAILED", "CASH_ON_DELIVERY"],
+    default: "PENDING_PAYMENT",
+  },
+
   totalAmount: { type: Number, default: 0 },
+
+  createdAt: { type: Date, default: Date.now },
 });
+
 
 export const Order = mongoose.model("Order", orderSchema);

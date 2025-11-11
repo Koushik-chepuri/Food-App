@@ -1,35 +1,64 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import api from "../api/axios";
+import axios from "../api/axios";
 import { useAuth } from "../context/AuthContext";
+import "../styling/Login.css";
+import Navbar from "../components/Navbar";
 
 export default function Login() {
-  const nav = useNavigate();
   const { login } = useAuth();
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [err, setErr] = useState("");
 
-  const submit = async () => {
-    setErr("");
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     try {
-      const res = await api.post("/auth/login", { email, password });
-      login(res.data.user, res.data.token);
-      nav("/restaurants");
-    } catch (e) {
-      setErr(e?.response?.data?.message || e.message);
+      const res = await axios.post("/auth/login", { email, password });
+      const { token, user } = res.data;
+      login(user, token);
+      navigate("/restaurants");
+    } catch (err) {
+      alert("Incorrect credentials. Try again.");
     }
   };
 
   return (
-    <div style={{display:"flex",justifyContent:"center",alignItems:"center",height:"100vh"}}>
-      <div style={{display:"grid",gap:12,maxWidth:360,width:"100%",padding:24,border:"1px solid #ddd",borderRadius:12,background:"#fff"}}>
-        <h2 style={{textAlign:"center",marginBottom:8}}>Login</h2>
-        <input placeholder="email" value={email} onChange={(e)=>setEmail(e.target.value)} />
-        <input placeholder="password" type="password" value={password} onChange={(e)=>setPassword(e.target.value)} />
-        <button onClick={submit}>Login</button>
-        {err && <div style={{color:"crimson",fontSize:13}}>{err}</div>}
+    <>
+      {/* <Navbar /> */}
+
+      <div className="auth-page">
+        <div className="auth-card">
+          <h2 className="auth-title">Welcome back</h2>
+          <p className="auth-sub">Login to continue your feast.</p>
+
+          <form onSubmit={handleSubmit} className="auth-form">
+            <input
+              type="email"
+              placeholder="Email address"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="auth-input"
+              required
+            />
+
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="auth-input"
+              required
+            />
+
+            <button className="auth-btn">Login</button>
+          </form>
+
+          <p className="auth-alt">
+            New here? <a href="/signup">Create an account</a>
+          </p>
+        </div>
       </div>
-    </div>
+    </>
   );
 }

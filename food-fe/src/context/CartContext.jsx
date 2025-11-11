@@ -22,9 +22,12 @@ export function CartProvider({ children }) {
           i._id === item._id ? { ...i, qty: i.qty + 1 } : i
         );
       }
-      return [...prev, { ...item, qty: 1 }];
+
+      // ✅ Add restaurantId here
+      return [...prev, { ...item, qty: 1, restaurantId }];
     });
   };
+
 
   const increaseQty = (id) =>
     setCart((prev) =>

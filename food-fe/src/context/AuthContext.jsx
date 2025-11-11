@@ -1,9 +1,11 @@
 import { createContext, useContext, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext();
 export const useAuth = () => useContext(AuthContext);
 
 export function AuthProvider({ children }) {
+  //   const navigate = useNavigate();
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -13,14 +15,24 @@ export function AuthProvider({ children }) {
 
   const login = (userData, token) => {
     localStorage.setItem("token", token);
-    localStorage.setItem("user", JSON.stringify(userData));
-    setUser(userData);
+
+    const safeUser = {
+      id: userData._id,
+      name: userData.name,
+      role: userData.role,
+      country: userData.country,
+      email: userData.email,
+    };
+
+    localStorage.setItem("user", JSON.stringify(safeUser));
+    setUser(safeUser);
   };
 
   const logout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     setUser(null);
+    // navigate("/");
   };
 
   const isAuthed = !!user;

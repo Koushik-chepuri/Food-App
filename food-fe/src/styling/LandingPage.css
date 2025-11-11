@@ -1,73 +1,61 @@
-:root {
-  --bg: #FAF9F6;
-  --text-primary: #111111;
-  --text-secondary: #4B5563;
-  --card-border: #E5E7EB;
-  --accent: #E11D48;
-}
-
-/* The landing area now fits EXACTLY under the navbar */
 .landing-shell {
-  height: calc(100vh - 60px); /* <-- KEY FIX */
-  /* width: 100%; */
-  background: var(--bg);
+  position: relative;
+  height: calc(100vh - 60px);
+  background: var(--bg-page);
   display: flex;
   flex-direction: column;
-  justify-content: center; /* centers vertically */
-  align-items: center;     /* centers horizontally */
-  overflow: hidden; /* kill scroll */
-}
-
-/* Remove all margin & top padding that caused shifting */
-.intro-block {
-  max-width: 800px;
+  justify-content: center;
+  align-items: center;
   text-align: center;
   padding: 0 20px;
-  margin: 0;
+}
+
+.intro-block {
+  max-width: 720px;
 }
 
 .intro-title {
-  font-size: 46px;
+  font-size: 44px;
   font-weight: 700;
-  margin-bottom: 18px;
-  color: var(--text-primary);
+  color: var(--text-main);
+  margin-bottom: 14px;
 }
 
 .intro-text {
   font-size: 18px;
-  line-height: 1.55;
-  color: var(--text-secondary);
-  margin-bottom: 35px;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin-bottom: 36px;
 }
 
 /* Button */
 .primary-action {
   display: inline-block;
   padding: 14px 28px;
-  border-radius: 6px;
-  background: var(--text-primary);
+  border-radius: var(--radius);
+  background: var(--brand-primary);
   color: #fff;
-  text-decoration: none;
-  font-size: 17px;
-  font-weight: 500;
-  transition: 0.25s ease;
+  font-weight: 600;
+  font-size: 18px;
+  transition: transform 0.1s ease, box-shadow 0.25s ease;
 }
 
 .primary-action:hover {
-  background: #000;
+  background: var(--brand-primary-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.18);
 }
 
-/* Footer sits inside the same viewport, not below */
+/* Footer */
 .site-footer {
   position: absolute;
   bottom: 20px;
-  left: 0;
   width: 100%;
   text-align: center;
   font-size: 14px;
-  color: var(--text-secondary);
+  color: var(--text-muted);
 }
 
 .love {
-  color: var(--accent);
+  color: var(--brand-accent);
 }

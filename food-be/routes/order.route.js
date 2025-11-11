@@ -1,21 +1,26 @@
 import express from "express";
 import { protect } from "../middlewares/auth.middleware.js";
+import { authorize } from "../middlewares/rbac.middleware.js";
 import {
-  createOrUpdateOrder,
-  checkoutOrder,
+  createOrder,
+  updatePaymentStatus,
+  updatePaymentMethod,
   cancelOrder,
 } from "../controllers/order.controller.js";
-import { allowCheckout, authorize } from "../middlewares/rbac.middleware.js";
 
 const router = express.Router();
 
-router.post("/", protect, createOrUpdateOrder);
-router.post("/checkout", protect, allowCheckout, checkoutOrder);
+router.post("/", protect, createOrder);
+
 router.patch(
-  "/:id/cancel",
+  "/:id/pay",
   protect,
   authorize("Admin", "Manager"),
-  cancelOrder
+  updatePaymentStatus
 );
+
+router.patch("/:id/method", protect, authorize("Admin"), updatePaymentMethod);
+
+router.delete("/:id", protect, authorize("Admin", "Manager"), cancelOrder);
 
 export default router;

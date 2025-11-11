@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../api/axios";
 import { useAuth } from "../context/AuthContext";
+import "../styling/Signup.css";
+import Navbar from "../components/Navbar";
 
 export default function Signup() {
   const nav = useNavigate();
@@ -13,7 +15,8 @@ export default function Signup() {
   const [country, setCountry] = useState("India");
   const [err, setErr] = useState("");
 
-  const submit = async () => {
+  const submit = async (e) => {
+    e.preventDefault();
     setErr("");
     try {
       const res = await api.post("/auth/signup", { name, email, password, role, country });
@@ -25,32 +28,62 @@ export default function Signup() {
   };
 
   return (
-    <div style={{display:"grid",placeItems:"center",height:"100vh"}}>
-      <div style={{width:360,display:"grid",gap:12,padding:24,border:"1px solid #ddd",borderRadius:12,background:"#fff"}}>
-        <h2 style={{textAlign:"center",marginBottom:12}}>Signup</h2>
+    <>
+      <div className="auth-page">
+        <div className="auth-card">
+          <h2 className="auth-title">Create Account</h2>
+          <p className="auth-sub">Join and begin your feast.</p>
 
-        <input placeholder="name" value={name} onChange={(e)=>setName(e.target.value)} />
-        <input placeholder="email" value={email} onChange={(e)=>setEmail(e.target.value)} />
-        <input placeholder="password" type="password" value={password} onChange={(e)=>setPassword(e.target.value)} />
+          <form className="auth-form" onSubmit={submit}>
+            <input
+              className="auth-input"
+              placeholder="Full Name"
+              value={name}
+              onChange={(e)=>setName(e.target.value)}
+              required
+            />
 
-        <select value={role} onChange={(e)=>setRole(e.target.value)}>
-          <option value="admin">admin</option>
-          <option value="manager">manager</option>
-          <option value="member">member</option>
-        </select>
+            <input
+              className="auth-input"
+              type="email"
+              placeholder="Email Address"
+              value={email}
+              onChange={(e)=>setEmail(e.target.value)}
+              required
+            />
 
-        <select value={country} onChange={(e)=>setCountry(e.target.value)}>
-          <option value="India">India</option>
-          <option value="America">America</option>
-        </select>
+            <input
+              className="auth-input"
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e)=>setPassword(e.target.value)}
+              required
+            />
 
-        <button onClick={submit}>Create Account</button>
-        {err && <div style={{color:"crimson"}}>{err}</div>}
+            <select className="auth-input" value={role} onChange={(e)=>setRole(e.target.value)}>
+              <option value="admin">Admin</option>
+              <option value="manager">Manager</option>
+              <option value="member">Member</option>
+            </select>
 
-        <div style={{fontSize:12,textAlign:"center"}}>
-          Already have an account? <a href="/login">Login</a>
+            <select className="auth-input" value={country} onChange={(e)=>setCountry(e.target.value)}>
+              <option value="India">India</option>
+              <option value="America">America</option>
+            </select>
+
+            <button className="auth-btn" type="submit">
+              Signup
+            </button>
+          </form>
+
+          {err && <div className="auth-error">{err}</div>}
+
+          <p className="auth-alt">
+            Already have an account? <a href="/login">Login</a>
+          </p>
         </div>
       </div>
-    </div>
+    </>
   );
 }

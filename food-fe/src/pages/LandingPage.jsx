@@ -1,7 +1,18 @@
 import "../styling/LandingPage.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 export default function LandingPage() {
+  const { isAuthed } = useAuth();
+  const navigate = useNavigate();
+
+  const handleBrowse = (e) => {
+    if (!isAuthed) {
+      e.preventDefault(); 
+      navigate("/login");
+    }
+  };
+
   return (
     <div className="landing-shell">
       <div className="intro-block">
@@ -10,7 +21,11 @@ export default function LandingPage() {
           Forkit connects customers, restaurants, and delivery partners so food moves fast and smooth.
         </p>
 
-        <Link to="/restaurants" className="primary-action">
+        <Link
+          to="/restaurants"
+          className="primary-action"
+          onClick={handleBrowse}
+        >
           Browse Restaurants
         </Link>
       </div>

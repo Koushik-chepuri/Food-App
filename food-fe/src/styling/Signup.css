@@ -1,0 +1,90 @@
+/* SIGNUP PAGE (same theme as login) */
+
+.auth-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 60px);
+  background: var(--bg-page);
+  padding: 20px;
+}
+
+.auth-card {
+  width: 380px;
+  background: var(--bg-card);
+  padding: 32px;
+  border-radius: 14px;
+  box-shadow: 0 8px 26px rgba(0,0,0,0.08);
+  text-align: center;
+}
+
+.auth-title {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: var(--text-main);
+}
+
+.auth-sub {
+  color: var(--text-muted);
+  margin-bottom: 26px;
+  font-size: 14px;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.auth-input {
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: 1px solid #d6d2c8;
+  background: #fcfbf8;
+  font-size: 14px;
+  transition: border 0.2s ease, background 0.2s ease;
+}
+
+.auth-input:focus {
+  border-color: var(--brand-primary);
+  background: #fff;
+  outline: none;
+}
+
+/* same physics as primary-action + signup btn in navbar */
+.auth-btn {
+  display: inline-block;
+  padding: 12px;
+  border-radius: var(--radius);
+  background: var(--brand-primary);
+  color: #fff;
+  font-weight: 600;
+  font-size: 15px;
+  border: none;
+  transition: transform 0.1s ease, box-shadow 0.25s ease, background var(--transition);
+}
+
+.auth-btn:hover {
+  background: var(--brand-primary-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+}
+
+.auth-alt {
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+.auth-alt a {
+  color: var(--brand-primary);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.auth-error {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #b2463a;
+  font-weight: 500;
+}

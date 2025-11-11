@@ -1,79 +1,70 @@
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  --brand-primary: #5F7A3A;
+  --brand-primary-hover: #4E622F;
+  --brand-accent: #CBA35C;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  --text-main: #1A1A1A;
+  --text-muted: #6E6E6E;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  --bg-page: #E9E2D3;  
+  --bg-card: #F8F5EC;
+
+  --radius: 8px;
+  --transition: 0.25s ease;
 }
 
+
 * {
-  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
 }
 
 a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+  color: inherit;
+  text-decoration: none;
 }
 
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  background: var(--bg-page);
+  color: var(--text-main);
+  -webkit-font-smoothing: antialiased;
+  height: 100vh;
+  width: 100vw;
+  overflow-x: hidden;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
 
 button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
   cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
 }
 
-html, body {
-  margin: 0;
-  padding: 0;
+/* Scrollbar (Chrome / Edge / Safari) */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(60, 60, 40, 0.35); /* muted olive-gray */
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #e8e2d5; /* matches the page tone */
+}
+
+/* Scrollbar for Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(60, 60, 40, 0.35) #e8e2d5;
+}
+
+/* html, body, #root {
   height: 100%;
-  overflow: hidden; /* only for landing page */
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-}
+#root {
+  display: flex;
+  flex-direction: column;
+} */
