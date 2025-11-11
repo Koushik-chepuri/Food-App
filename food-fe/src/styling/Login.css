@@ -90,19 +90,20 @@
 }
 
 .password-field .auth-input {
-  padding-right: 42px; /* space for the eye */
+  padding-right: 42px; 
 }
 
 .toggle-eye {
   position: absolute;
-  right: 12px;
+  right: 14px;
   top: 50%;
   transform: translateY(-50%);
   cursor: pointer;
-  font-size: 18px;
   color: var(--text-muted);
-  user-select: none;
-  transition: 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.25s ease;
 }
 
 .toggle-eye:hover {

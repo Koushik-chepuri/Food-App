@@ -55,12 +55,45 @@ export default function Login() {
 
             <span
                 className="toggle-eye"
-                onClick={() => setShowPassword((prev) => !prev)}
+                onClick={() => setShowPassword(!showPassword)}
             >
-                {showPassword ?  "🚫👁" : "👁"}
+                {showPassword ? (
+                // Eye Off
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    width="20"
+                    height="20"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                >
+                    <path d="M17.94 17.94A10.94 10.94 0 0 1 12 19c-5.52 0-10-4.48-10-7 0-1.02.38-2.02 1.06-2.94"/>
+                    <path d="M1 1l22 22"/>
+                    <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/>
+                    <path d="M12 5c5.52 0 10 4.48 10 7a5.4 5.4 0 0 1-.47 2"/>
+                </svg>
+                ) : (
+                // Eye
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    width="20"
+                    height="20"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                >
+                    <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/>
+                    <circle cx="12" cy="12" r="3"/>
+                </svg>
+                )}
             </span>
             </div>
-
 
             <button className="auth-btn">Login</button>
           </form>
